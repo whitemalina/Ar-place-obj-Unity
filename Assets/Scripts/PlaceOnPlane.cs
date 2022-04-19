@@ -131,17 +131,12 @@ using UnityEngine.XR.ARSubsystems;
                 if (touch.phase == TouchPhase.Began)
                 {
                     //test texturing
-                    
-                    //Renderer m_renderer = GameObject.FindWithTag("UnSelected").GetComponent<Renderer>();
                     Material mat0 = Resources.Load<Material>("Materials/Velour_BaseColor");
                     for (int i = 0; i < spawnedObject.transform.childCount; i++)
                     {
                         spawnedObject.transform.GetChild(i).GetComponent<MeshRenderer>().material = mat0;
                     }
-                    //spawnedObject.transform.GetChild(1).GetComponent<MeshRenderer>().material = materialUse;
-                   // m_renderer.material = materialUse;
-                    
-                    // spawnedObject.
+
                     //create ray hit
                     Ray ray = ARCamera.ScreenPointToRay(touch.position);
                     RaycastHit hitObject;
