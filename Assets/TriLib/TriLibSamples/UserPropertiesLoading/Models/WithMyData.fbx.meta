@@ -3,12 +3,32 @@ guid: da7e160a3e406004ba56f70a861926d7
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: -6478536213147159724, guid: caadfc6f667378b4fb10e69289ca725a, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 808dc6b63b599b04b9d51116a6ed7840, type: 2}
   materials:
+<<<<<<< HEAD:Assets/TriLib/TriLibSamples/UserPropertiesLoading/Models/WithMyData.fbx.meta
     materialImportMode: 1
     materialName: 0
+=======
+    materialImportMode: 0
+    materialName: 2
+>>>>>>> ffdf56a7610fff2674721f217fb3463e83d0691d:Assets/five/Five.fbx.meta
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
