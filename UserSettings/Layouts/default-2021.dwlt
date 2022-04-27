@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1904
     height: 990
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Hierarchy
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 16
+  controlID: 41
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 17
+  controlID: 42
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 18
+  controlID: 43
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,22 +317,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\android_developer\app_unity_to_fl\flutter_app1\unity\ar-kreslo
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 90500000
-    m_LastClickedID: 20624
-    m_ExpandedIDs: 0000000090500000925000009450000096500000aa500000f0500000ce5f000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 76}
+    m_SelectedIDs: 02660000
+    m_LastClickedID: 26114
+    m_ExpandedIDs: 000000001252000014520000165200001852000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -360,7 +360,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000090500000925000009450000096500000
+    m_ExpandedIDs: 0000000012520000145200001652000018520000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -490,7 +490,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: d69fffff22a0ffff88a1fffff4a2ffff40a3ffffa6a4ffff72a8ffffc0a8ffff26aaffffc2abffff10acffffa6adffffeeb1ffff3cb2ffffceb3ffffe6c2ffff56c4ffffa2c4ffff08c6ffff7cceffffaad0fffff8d0ffff5ed2ffffc2d4ffff0ed5ffff74d6ffffead8ffff36d9ffff98daffffbce8ffff08e9ffff6eeaffffe8ecffff38edffff9eeeffff1cf0ffff6cf0ffffd2f1ffff5af3ffffa8f3ffff0ef5ffff8cf6ffffdcf6ffff42f8ffff32fbffff
+      m_ExpandedIDs: be97ffff0a98ffffd699ffff469bffff929bffff5e9dffffd29effff1e9fffffeaa0ffff2ca2ffff78a2ffff44a4ffff82a5ffffcea5ffff9aa7ffffdca8ffff28a9fffff4aaffff6aacffffb6acffff82aefffff0afffff3cb0ffff08b2ffff48b3ffff94b3ffff60b5ffffa4b6fffff0b6ffffbcb8ffff00baffff4cbaffff18bcffff58bdffffa4bdffff70bfffffdec0ffff2ac1fffff6c2ffff64c4ffffb0c4ffff7cc6ffffbac7ffff06c8ffffd2c9ffff48cbffff94cbffff60cdffff9eceffffeaceffffb6d0ffff28d3ffff76d3ffff42d5ffff96d6ffffe4d6ffffb0d8ffff04daffff52daffff1edcffff7eddffffccddffff98dfffffe0e1ffff2ee2fffffae3ffff32fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
