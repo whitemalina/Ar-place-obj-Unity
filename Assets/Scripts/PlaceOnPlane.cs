@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Threading.Tasks;
 using TriLibCore;
 using UnityEditor;
 // using UnityEditor.VersionControl;
@@ -60,6 +62,7 @@ using UnityEngine.XR.ARSubsystems;
             
             placementUpdate.AddListener(DiableVisual);
             
+            
         }
         
         bool TryGetTouchPosition(out Vector2 touchPosition)
@@ -75,17 +78,22 @@ using UnityEngine.XR.ARSubsystems;
             return false;
         }
 
+        private Texture2D BaseColor = null;
+        private Texture2D NormalMap = null;
+        private Texture2D HeightMap = null;
+        
         void Update()
         {
             if (!TryGetTouchPosition(out Vector2 touchPosition))
                 return;
-
             if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
             {
                 var hitPose = s_Hits[0].pose;
                 // if object not placed
                 if (spawnedObject == null)
                 {
+                    
+
                     //create hits
                     List<ARRaycastManager> hits = new List<ARRaycastManager>();
                     
@@ -132,10 +140,15 @@ using UnityEngine.XR.ARSubsystems;
                             rbody.isKinematic = true;
                         }
                         assetLoaderContext.RootGameObject.gameObject.tag = "UnSelected";
-
+                        
+                        
+                        //loadModel("s");
+                    
+                        
+                        
                     }, delegate(AssetLoaderContext assetLoaderContext) 
                     {
-
+                        
                         
                         if (!assetLoaderContext.RootGameObject.GetComponent<BoxCollider>())
                         {
@@ -184,7 +197,7 @@ using UnityEngine.XR.ARSubsystems;
                         }
 
                         spawnedObject.gameObject.tag = "UnSelected";
-                        
+                        LoadTexture("/data/user/0/com.AllinReality.ARFoundationHitTest/texture/Velour_BaseColor.png","/data/user/0/com.AllinReality.ARFoundationHitTest/texture/Velour_NormalMap.jpeg", "/data/user/0/com.AllinReality.ARFoundationHitTest/texture/Velour_Height.jpeg");
                         
                     }, null, null, null, assetLoaderOptions, null);
                     aRPlaneManager = GetComponent<ARPlaneManager>();
@@ -194,7 +207,8 @@ using UnityEngine.XR.ARSubsystems;
                         plane.gameObject.SetActive(false);
                     }
                     spawnedObject.gameObject.tag = "UnSelected";
-
+                    //loadTexture
+                    
                     //disable visual plane
                     // aRPlaneManager = GetComponent<ARPlaneManager>();
                     // aRPlaneManager.enabled = false;
@@ -239,11 +253,20 @@ using UnityEngine.XR.ARSubsystems;
                     //test texturing
                     Material mat0 = Resources.Load<Material>("Materials/Velour_BaseColor");
                     //loadModel("s");
-                    
+
+                    // for (int i = 0; i < spawnedObject.transform.childCount; i++)
+                    // {
+                    //     spawnedObject.transform.GetChild(i).GetComponent<MeshRenderer>().material = mat0;
+                    // }
                     for (int i = 0; i < spawnedObject.transform.childCount; i++)
                     {
-                        spawnedObject.transform.GetChild(i).GetComponent<MeshRenderer>().material = mat0;
+                        spawnedObject.transform.GetChild(i).GetComponent<MeshRenderer>().material.SetTexture("_MainTex", BaseColor);
+                        spawnedObject.transform.GetChild(i).GetComponent<MeshRenderer>().material.SetTexture("_BumpMap", NormalMap);
+                        spawnedObject.transform.GetChild(i).GetComponent<MeshRenderer>().material.SetTexture("_ParallaxMap", HeightMap);
+                            
                     }
+                    
+                    
                     Debug.Log("Model textured");
                     
                     //create ray hit
@@ -310,60 +333,52 @@ using UnityEngine.XR.ARSubsystems;
             
         }
 
+        public void LoadModel(string filePath)
+        {
+            testPath = filePath;
 
-        async void loadModel(string s){
-            var assetLoaderOptions = AssetLoader.CreateDefaultLoaderOptions();
-            AssetLoader.LoadModelFromFile(testPath, null, delegate(AssetLoaderContext assetLoaderContext) {
-                spawnedObject = assetLoaderContext.RootGameObject;
-                        
-                /*
-                Rigidbody idbody2 = assetLoaderContext.RootGameObject.gameObject.AddComponent<Rigidbody>();
-                idbody2.useGravity = false;
-                idbody2.isKinematic = true;
-            
-                //set boxcollider
-                BoxCollider collider2 = assetLoaderContext.RootGameObject.gameObject.AddComponent<BoxCollider>();
-            
-                //resize collider
-                MeshRenderer renderer2 = assetLoaderContext.RootGameObject.gameObject.AddComponent<MeshRenderer>();
-                collider2.center = renderer2.bounds.center;
-                collider2.size = renderer2.bounds.size;*/
-                var pos1 = spawnedObject.transform.position;
-                var rot1 = spawnedObject.transform.rotation;
-                Destroy(spawnedObject);
-                spawnedObject = Instantiate(assetLoaderContext.RootGameObject.gameObject, pos1, rot1);
-                Vector3 vec;
-                vec.x = 99999;
-                vec.y = 99999;
-                vec.z = 99999;
-                assetLoaderContext.RootGameObject.transform.position = vec;
-                //
-                // BoxCollider collider1 = spawnedObject.AddComponent<BoxCollider>();
-                // MeshRenderer renderer1 = spawnedObject.gameObject.AddComponent<MeshRenderer>();
-                // collider1.center = renderer1.bounds.center;
-                // collider1.size = renderer1.bounds.size;
-                // Rigidbody idbody1 = spawnedObject.AddComponent<Rigidbody>();
-
-            }, null, null, null, assetLoaderOptions, null);
         }
 
-        void setupInternalFiles(GameObject g, AssetLoaderContext ac){
-
-            //g.transform.localScale = Vector3.one*.025f;
-            //g.transform.parent = this.transform;
-            g.GetComponent<Rigidbody>().isKinematic = true;
+        public async void LoadTexture(string BaseColorPath,string NormalMapPath,string HeightMapPath)
+        {
+            BaseColor = null;
+            NormalMap = null;
+            HeightMap = null;
             
-            foreach(Collider c in g.GetComponentsInChildren<Collider>()){
-                c.isTrigger = true;
+            BaseColor = LoadTextureData(BaseColorPath);
+            NormalMap = LoadTextureData(NormalMapPath); 
+            HeightMap = LoadTextureData(HeightMapPath);
+            while (BaseColor == null && NormalMap == null && HeightMap == null)
+            {
+                Task.Yield();
+            }
+
+            SetTexture();
+        }
+
+        public void SetTexture()
+        {
+            for (int i = 0; i < spawnedObject.transform.childCount; i++)
+            {
+                spawnedObject.transform.GetChild(i).GetComponent<MeshRenderer>().material.SetTexture("_MainTex", BaseColor);
+                spawnedObject.transform.GetChild(i).GetComponent<MeshRenderer>().material.SetTexture("_BumpMap", NormalMap);
+                spawnedObject.transform.GetChild(i).GetComponent<MeshRenderer>().material.SetTexture("_ParallaxMap", HeightMap);
+            }
+        }
+        public static Texture2D LoadTextureData(string filePath) {
+ 
+            Texture2D tex = null;
+            byte[] fileData;
+ 
+            if (File.Exists(filePath))     {
+                fileData = File.ReadAllBytes(filePath);
+                tex = new Texture2D(2, 2);
+                tex.LoadImage(fileData); //..this will auto-resize the texture dimensions.
             }
             
-            if(g.GetComponent<Collider>())
-                g.GetComponent<Collider>().isTrigger = true;
-            m_PlacedPrefab = g.gameObject;
-            // ac.RootGameObject.gameObject.SetActive(false);
-            g.gameObject.SetActive(false);
-            g.gameObject.SetActive(false);
+            return tex;
         }
+
 
         static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
         ARRaycastManager m_RaycastManager;
